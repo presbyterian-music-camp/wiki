@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:alpine
+    container_name: pmc-wiki-db
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ZKd7PYRc3RjYXCTd7fSUxAbzlq8JqVpz
+    logging:
+      options:
+        max-file: 3
+        max-size: 10m
+  main:
+    image: requarks/wiki:2
+    container_name: pmc-wiki-main
+    volumes:
+      - ./config.yml:/wiki/config.yml:ro
+    logging:
+      options:
+        max-file: 3
+        max-size: 10m
+    ports:
+      - 8002:3443
+    restart: always
