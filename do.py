@@ -12,7 +12,6 @@ import sys
 #===== args =====#
 parser = argparse.ArgumentParser()
 parser.add_argument('--docker-run', '--dkrr', action='store_true')
-parser.add_argument('--docker-cp-certs', '--dkrc', action='store_true')
 args = parser.parse_args()
 
 #===== consts =====#
@@ -77,9 +76,3 @@ if len(sys.argv) == 1:
 
 if args.docker_run:
     invoke('docker compose up -d')
-
-if args.docker_cp_certs:
-    invoke('docker cp -L /etc/letsencrypt/live/wiki.presbyterianmusiccamp.ca/privkey.pem pmc-wiki-main:/wiki/privkey.pem')
-    invoke('docker cp -L /etc/letsencrypt/live/wiki.presbyterianmusiccamp.ca/fullchain.pem pmc-wiki-main:/wiki/fullchain.pem')
-    invoke('docker exec -u root pmc-wiki-main chown node /wiki/privkey.pem')
-    invoke('docker exec -u root pmc-wiki-main chown node /wiki/fullchain.pem')
