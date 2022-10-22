@@ -15,7 +15,7 @@ services:
     image: requarks/wiki:2
     container_name: pmc-wiki-main
     volumes:
-      - ./config.yml:/wiki/config.yml:ro
+      - ${PWD}/config.yml:/wiki/config.yml:ro
     logging:
       options:
         max-file: 3
