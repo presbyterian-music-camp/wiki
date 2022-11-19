@@ -12,6 +12,7 @@ import sys
 #===== args =====#
 parser = argparse.ArgumentParser()
 parser.add_argument('--docker-run', '--dkrr', action='store_true')
+parser.add_argument('--docker-network-connect', '--dkrn', metavar='network_name')
 args = parser.parse_args()
 
 #===== consts =====#
@@ -76,3 +77,6 @@ if len(sys.argv) == 1:
 
 if args.docker_run:
     invoke('docker compose up -d')
+
+if args.docker_network_connect:
+    invoke(f'docker network connect {args.docker_network_connect} pmc-wiki-main')
