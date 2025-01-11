@@ -2,7 +2,7 @@ version: '3'
 
 services:
   db:
-    image: postgres:alpine
+    image: postgres@sha256:322e9d80bbe0d19df45a2cfa262b50947683b4da283afdb6bee8e549aea87bf3
     container_name: pmc-wiki-db
     restart: always
     environment:
@@ -12,7 +12,7 @@ services:
         max-file: 3
         max-size: 10m
   main:
-    image: requarks/wiki:2
+    image: requarks/wiki@sha256:de23673914e56b69b795987509ca8e5f45aa6ca3834ae91e57b55e5388d3d4e3
     container_name: pmc-wiki-main
     volumes:
       - ${PWD}/config.yml:/wiki/config.yml:ro
