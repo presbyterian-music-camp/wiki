@@ -13,6 +13,7 @@ import sys
 parser = argparse.ArgumentParser()
 parser.add_argument('--docker-run', '--dkrr', action='store_true')
 parser.add_argument('--docker-network-connect', '--dkrn', metavar='network_name')
+parser.add_argument('--database-create', action='store_true')
 args = parser.parse_args()
 
 #===== consts =====#
@@ -80,3 +81,15 @@ if args.docker_run:
 
 if args.docker_network_connect:
     invoke(f'docker network connect {args.docker_network_connect} pmc-wiki-main')
+
+if args.database_create:
+    def psql(cmd):
+        invoke(
+            'docker', 'exec',
+            '-u', 'postgres',
+            'pmc-wiki-db',
+            'psql', '-c', cmd,
+        )
+    psql('CREATE DATABASE db_pmc_wiki')
+    psql("CREATE USER u_pmc_wiki WITH PASSWORD 'ZKd7PYRc3RjYXCTd7fSUxAbzlq8JqVpz'")
+    psql('GRANT ALL PRIVILEGES ON DATABASE db_pmc_wiki TO u_pmc_wiki')
